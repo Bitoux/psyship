@@ -7,15 +7,18 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 
 require('./api/models/db');
+require('./api/models/user');
 require('./api/config/passport');
 
-app.use(passport.initialize());
-app.use('/api', routesApi);
+
 
 var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
 
 var app = express();
+
+app.use(passport.initialize());
+app.use('/api', routesApi);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +34,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(err, req, res, next) {
+  if(err.name === 'UnauthorizedError'){
+    res.status(401);
+    res.json({
+      "message": err.name + ": " + err.message
+    });
+  }
   next(createError(404));
 });
 
