@@ -6,6 +6,11 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
+require('./api/models/db');
+require('./api/config/passport');
+
+app.use(passport.initialize());
+app.use('/api', routesApi);
 
 var indexRouter = require('./api/routes/index');
 var usersRouter = require('./api/routes/users');
