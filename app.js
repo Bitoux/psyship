@@ -18,7 +18,7 @@ var usersRouter = require('./api/routes/users');
 var app = express();
 
 app.use(passport.initialize());
-app.use('/api', routesApi);
+app.use('/api', usersRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
