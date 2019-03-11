@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
+require('dotenv').load();
 require('./api/models/db');
 require('./api/models/user');
 require('./api/config/passport');
